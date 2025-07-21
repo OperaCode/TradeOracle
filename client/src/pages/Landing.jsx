@@ -22,8 +22,14 @@ const Landing = () => {
         </h1>
         <nav className="hidden md:flex space-x-6">
           <a
+            href="#home"
+            className="text-sm hover:text-yellow-400 transition-colors duration-200 font-bold"
+          >
+           Home
+          </a>
+          <a
             href="#features"
-            className="text-sm hover:text-yellow-400 transition-colors duration-200"
+            className="text-sm hover:text-yellow-400 transition-colors duration-200 font-bold"
           >
             Features
           </a>
@@ -31,14 +37,8 @@ const Landing = () => {
             to="/dashboard"
             className="text-sm hover:text-yellow-400 transition-colors duration-200 font-bold"
           >
-            Dashboard
+            Go to Dashboard
           </Link>
-          <a
-            href="#contact"
-            className="text-sm hover:text-yellow-400 transition-colors duration-200"
-          >
-            Contact
-          </a>
         </nav>
         <button className="md:hidden text-white">
           <Menu size={24} />
@@ -47,6 +47,7 @@ const Landing = () => {
 
       {/* Hero Section */}
       <motion.main
+      id="home"
         style={{ opacity, scale }}
         className="flex-grow flex flex-col justify-center items-center text-center px-4 sm:px-6 py-12 sm:py-20"
       >
