@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 // CORS config 
 app.use(
   cors({
-    origin: ["http://localhost:5173","https://trade-oracle.vercel.app/"], 
+    origin: ["http://localhost:5173", "https://trade-oracle.vercel.app"], 
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true, 
   })
