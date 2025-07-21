@@ -90,9 +90,7 @@ const Dashboard = () => {
             Back to Home
           </Link>
         </nav>
-        <button className="md:hidden text-white">
-          <Menu size={24} />
-        </button>
+      
       </motion.header>
 
       {/* Main Content */}

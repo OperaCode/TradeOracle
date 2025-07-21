@@ -40,9 +40,6 @@ const Landing = () => {
             Go to Dashboard
           </Link>
         </nav>
-        <button className="md:hidden text-white">
-          <Menu size={24} />
-        </button>
       </motion.header>
 
       {/* Hero Section */}
