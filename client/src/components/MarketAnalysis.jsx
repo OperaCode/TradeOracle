@@ -11,9 +11,9 @@ const MarketAnalysis = ({ data, loading, error, onRetry }) => {
   };
 
   const indicatorLabels = {
-    RSI: "Overbought/Oversold Indicator",
-    MACD: "Trend Strength",
-    SMA: "Average Price Trend",
+    RSI: "Overbought/Oversold Indicator(RSI)",
+    MACD: "Trend Strength (MACD)",
+    SMA: "Average Price Trend (SMA)",
   };
 
   const indicatorRows = useMemo(() => {
@@ -91,4 +91,4 @@ const MarketAnalysis = ({ data, loading, error, onRetry }) => {
   );
 };
 
-export default React.memo(MarketAnalysis);
+export default MarketAnalysis;
