@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { BarChart2, AlertCircle, Menu } from "lucide-react";
-import SymbolSelector from "../components/SymbolSelector";
+import { AlertCircle, Menu } from "lucide-react";
+import { Link } from "react-router-dom";
+// import SymbolSelector from "../components/SymbolSelector";
 import MarketPrice from "../components/MarketPrice";
 import MarketAnalysis from "../components/MarketAnalysis";
 import ChartsAndNews from "../components/ChartsAndNews";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = import.meta.env.VITE_FRONTEND_URL;
 
 const symbolToId = {
   BTCUSD: "bitcoin",
@@ -77,15 +78,13 @@ const Dashboard = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 120, damping: 20 }}
-        className="bg-black/30 backdrop-blur-lg shadow-lg px-4 sm:px-6 py-4 flex justify-between items-center sticky top-0 z-20"
+        className="w-full py-4 px-4 sm:px-6 flex justify-between items-center bg-black/30 backdrop-blur-lg sticky top-0 z-20 shadow-lg"
       >
-        <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight flex items-center gap-2">
-          <BarChart2 size={24} className="text-yellow-400" />
-          TradeOracle Dashboard
-        </h1>
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight">TradeOracle</h1>
         <nav className="hidden md:flex space-x-6">
-          <a href="#dashboard" className="text-sm hover:text-yellow-400 transition-colors duration-200">Dashboard</a>
-          <a href="#settings" className="text-sm hover:text-yellow-400 transition-colors duration-200">Settings</a>
+          {/* <a href="#features" className="text-sm hover:text-yellow-400 transition-colors duration-200">Features</a> */}
+          <Link to="/" className="text-sm hover:text-yellow-400 transition-colors duration-200">Back to Home</Link>
+          {/* <a href="#contact" className="text-sm hover:text-yellow-400 transition-colors duration-200">Contact</a> */}
         </nav>
         <button className="md:hidden text-white">
           <Menu size={24} />
@@ -112,19 +111,10 @@ const Dashboard = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white/10 rounded-2xl shadow-lg p-4 sm:p-6 hover:bg-white/15 backdrop-blur-lg transition-all duration-300"
-          >
-            <SymbolSelector symbol={symbol} setSymbol={setSymbol} />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
             className="bg-white/10 rounded-2xl shadow-lg p-4 sm:p-6 hover:bg-white/15 backdrop-blur-lg transition-all duration-300"
           >
-            <MarketPrice symbol={symbol} price={price} />
+            <MarketPrice symbol={symbol} setSymbol={setSymbol} price={price} />
           </motion.div>
 
           <motion.div

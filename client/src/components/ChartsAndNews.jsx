@@ -50,7 +50,7 @@ const fetchNews = async () => {
 };
 
 
-  // ✅ TradingView widget
+  // TradingView widget
   useEffect(() => {
     const widgetContainer = document.getElementById("tradingview-widget");
     if (!widgetContainer) return;
@@ -74,7 +74,7 @@ const fetchNews = async () => {
     widgetContainer.appendChild(script);
   }, [symbol]);
 
-  // ✅ Fetch news whenever symbol changes
+  // Fetch news whenever symbol changes
   useEffect(() => {
     fetchNews();
   }, [symbol]);
@@ -88,7 +88,7 @@ const fetchNews = async () => {
       </div>
 
       {/* News */}
-      <h3 className="text-lg font-bold mt-8 mb-4">Latest Crypto News</h3>
+      {/* <h3 className="text-lg font-bold mt-8 mb-4">Latest Crypto News</h3>
       <div className="bg-white rounded-lg shadow p-4">
         {loadingNews && <p className="text-gray-600">Loading news...</p>}
         {newsError && <p className="text-red-500">{newsError}</p>}
@@ -114,7 +114,7 @@ const fetchNews = async () => {
         ) : (
           !loadingNews && <p className="text-gray-600">No news available.</p>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

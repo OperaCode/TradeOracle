@@ -4,32 +4,6 @@ import { AlertCircle } from "lucide-react";
 import { PulseLoader } from "react-spinners";
 
 const MarketAnalysis = ({ data, loading, error, onRetry }) => {
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center py-4">
-        <PulseLoader color="#FBBF24" size={10} />
-      </div>
-    );
-  }
-  if (error) {
-    return (
-      <div className="flex flex-col items-center gap-2 text-red-400 py-4">
-        <AlertCircle size={18} />
-        <p>{error}</p>
-        <button
-          onClick={onRetry}
-          className="mt-2 bg-yellow-400 text-black px-3 py-1 rounded-full hover:bg-yellow-500"
-          aria-label="Retry fetching analysis"
-        >
-          Try Again
-        </button>
-      </div>
-    );
-  }
-  if (!data || !data.summary || !data.indicators) {
-    return <p className="text-gray-300 text-center py-4">No data available.</p>;
-  }
-
   const signalStyles = {
     BUY: "bg-green-500/20 text-green-400 border-green-500/50",
     SELL: "bg-red-500/20 text-red-400 border-red-500/50",
@@ -43,38 +17,76 @@ const MarketAnalysis = ({ data, loading, error, onRetry }) => {
   };
 
   const indicatorRows = useMemo(() => {
+    if (!data?.indicators) return null;
     return Object.entries(data.indicators).map(([key, value]) => (
       <div
         key={key}
-        className="p-2 bg-white/5 rounded-lg shadow-sm hover:bg-white/10 transition-all"
+        className="p-3 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl shadow hover:shadow-lg hover:bg-gray-800/80 transition-all"
       >
-        <p className="text-xs text-gray-300">{indicatorLabels[key] || key}</p>
-        <p className="text-base font-medium text-white">{value.toFixed(2)}</p>
+        <p className="text-xs text-gray-400 mb-1">{indicatorLabels[key] || key}</p>
+        <p className="text-base font-semibold text-white">{value.toFixed(2)}</p>
       </div>
     ));
-  }, [data.indicators]);
+  }, [data?.indicators]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-6">
+        <PulseLoader color="#FBBF24" size={10} />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center gap-2 text-red-400 py-6">
+        <AlertCircle size={20} />
+        <p>{error}</p>
+        <button
+          onClick={onRetry}
+          className="mt-2 bg-yellow-400 text-black px-4 py-2 rounded-full font-medium hover:bg-yellow-500 transition"
+          aria-label="Retry fetching analysis"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
+
+  if (!data || !data.summary || !data.indicators) {
+    return (
+      <p className="text-gray-400 text-center py-6">
+        No market analysis data available.
+      </p>
+    );
+  }
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="bg-gradient-to-br from-purple-900/50 to-blue-900/50 rounded-xl p-4 backdrop-blur-md border border-yellow-400/20 max-w-md mx-auto"
+      transition={{ duration: 0.4 }}
+      className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl p-4 sm:p-6 backdrop-blur-lg border border-yellow-400/20 shadow-lg"
       aria-live="polite"
     >
-      <h3 className="text-md font-medium text-yellow-400 mb-3">Market Overview</h3>
-      <p className="mb-4 text-gray-200">
-        <strong>Suggested Action:</strong>{" "}
-        <span
-          className={`px-2 py-1 rounded-full border ${
-            signalStyles[data.summary.RECOMMENDATION] || "bg-white/10 text-gray-200 border-gray-200/50"
-          }`}
-        >
-          {data.summary.RECOMMENDATION || "N/A"}
-        </span>
-      </p>
-      <h4 className="text-sm font-medium text-yellow-400 mb-2">Market Indicators</h4>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">{indicatorRows}</div>
+      <h3 className="text-lg font-semibold text-yellow-400 mb-4">Market Analysis</h3>
+
+      <div className="mb-6">
+        <p className="text-gray-300">
+          <strong className="text-yellow-400">Suggested Action:</strong>{" "}
+          <span
+            className={`inline-block px-3 py-1 rounded-full border ${
+              signalStyles[data.summary.RECOMMENDATION] ||
+              "bg-white/10 text-gray-200 border-gray-200/50"
+            }`}
+          >
+            {data.summary.RECOMMENDATION || "N/A"}
+          </span>
+        </p>
+      </div>
+
+      <h4 className="text-md font-medium text-yellow-400 mb-3">Indicators</h4>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">{indicatorRows}</div>
     </motion.div>
   );
 };
